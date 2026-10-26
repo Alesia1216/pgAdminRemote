@@ -1,0 +1,64 @@
+services:
+  mydb:
+    build: ./servidor
+    container_name: mydb
+    hostname: servidor-ALESIASERA
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=myodoo
+    ports:
+      - '127.0.0.1:2222:22'
+      - '8070:8069'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      backend:
+        ipv4_address: 172.28.0.10
+
+  web:
+    image: odoo:19.0
+    container_name: odoo
+    depends_on:
+      - mydb
+    network_mode: 'service:mydb'
+    restart: unless-stopped
+    environment:
+      - HOST=localhost
+      - USER=odoo
+      - PASSWORD=myodoo
+
+  cliente:
+    image: postgres:15
+    container_name: cliente
+    hostname: cliente-ALESIASERA
+    command: sleep infinity
+    ports:
+      - '8080:80'
+    networks:
+      backend:
+        ipv4_address: 172.28.0.30
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    depends_on:
+      - cliente
+    network_mode: 'service:cliente'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  pgdata:
+  pgadmin_data:
+
+networks:
+  backend:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24
