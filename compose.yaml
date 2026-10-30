@@ -27,10 +27,12 @@ services:
     restart: unless-stopped
     environment:
       - HOST=localhost
+      #- HOST=mydb
       - USER=odoo
       - PASSWORD=myodoo
     volumes:
       - ./addons:/mnt/extra-addons
+      - odoo_data:/var/lib/odoo
 
   cliente:
     image: postgres:15
@@ -58,6 +60,7 @@ services:
 volumes:
   pgdata:
   pgadmin_data:
+  odoo_data:
 
 networks:
   backend:

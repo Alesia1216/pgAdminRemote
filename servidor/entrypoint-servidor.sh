@@ -6,6 +6,7 @@ iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 iptables -A INPUT -p tcp --dport 8069 -j ACCEPT
+iptables -A INPUT -p tcp -s 172.28.0.30 --dport 5432 -m comment --comment 'PostgreSQL 5432 - ALESIASERA' -j ACCEPT
 iptables -P INPUT DROP
 
 # SSH para Remote-SSH
