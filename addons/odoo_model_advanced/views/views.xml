@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+
+        <!-- Vista tree (lista) 
+        <record id="view_odoo_model_advanced_car_tree" model="ir.ui.view">
+            <field name="name">view.odoo.model.advanced.car.tree</field>
+            <field name="model">odoo_model_advanced.car</field>
+            <field name="arch" type="xml">
+                <tree string="Coche">
+                    <field name="name"/>
+                    <field name="number_plate"/>
+                    <field name="cv"/>
+                    <field name="fuel_litres"/>
+                </tree>
+            </field>
+        </record>
+        -->
+        <!-- Vista list -->
+        <record id="view_odoo_model_advanced_car_list" model="ir.ui.view">
+            <field name="name">view.odoo.model.advanced.car.list</field>
+            <field name="model">odoo_model_advanced.car</field>
+            <field name="arch" type="xml">
+                <list string="Coche">
+                    <field name="name"/>
+                    <field name="number_plate"/>
+                    <field name="cv"/>
+                    <field name="fuel_litres"/>
+                    <field name="is_new"/>
+                    <field name="car_type"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista form (formulario) -->
+        <record id="view_odoo_model_advanced_car_form" model="ir.ui.view">
+            <field name="name">view.odoo.model.advanced.car.form</field>
+            <field name="model">odoo_model_advanced.car</field>
+            <field name="arch" type="xml">
+                <form string="Coche">
+                    <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="number_plate"/>
+                                <field name="colour"/>
+                                <field name="car_type"/>
+                            </group>
+                            <group>
+                                <field name="cv"/>
+                                <field name="fuel_litres"/>
+                                <field name="is_new"/>
+                            </group>
+                            <group string="Descripción">
+                                <field name="description" nolabel="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Acción para abrir vistas de los modelos -->
+        <record model="ir.actions.act_window" id="odoo_model_advanced_car">
+            <field name="name">Coche</field>
+            <field name="res_model">odoo_model_advanced.car</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- Menú item superior -->
+        <menuitem name="Modelo avanzado" id="odoo_model_advanced.menu_root"/>
+
+        <!-- Categorías de menú -->
+        <menuitem name="Modelos" id="odoo_model_advanced.menu_1" parent="odoo_model_advanced.menu_root"/>
+
+        <!-- Acciones del menú -->
+        <menuitem name="Coche" id="odoo_model_advanced.menu_car" parent="odoo_model_advanced.menu_1"
+                  action="odoo_model_advanced_car"/>
+
+    </data>
+</odoo>
